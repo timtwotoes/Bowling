@@ -9,16 +9,6 @@ public class GetPointsData {
     private int[][] points;
     private String token;
 
-    private class JSONObject {
-        private Object points;
-        private String token;
-
-        public Object getPoints() { return points; }
-        public void setPoints(Object points) {this.points = points;}
-        public String getToken() { return token; }
-        public void setToken(String token) { this.token = token; }
-    }
-
     public GetPointsData(List<List<Integer>> points, String token) {
         int[][] newPoints = new int[points.size()][];
 
@@ -32,12 +22,12 @@ public class GetPointsData {
     public static GetPointsData fromJSON(String jsonString) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        JSONObject object = mapper.readValue(jsonString, JSONObject.class);
+        JSONPointsData object = mapper.readValue(jsonString, JSONPointsData.class);
 
         @SuppressWarnings("unchecked")
-        List<List<Integer>> convertedPoints = (List<List<Integer>>)object.points;
+        List<List<Integer>> convertedPoints = (List<List<Integer>>)object.getPoints();
 
-        return new GetPointsData(convertedPoints, object.token);
+        return new GetPointsData(convertedPoints, object.getToken());
     }
 
     public int[][] getPoints() {
