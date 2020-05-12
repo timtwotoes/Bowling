@@ -6,6 +6,8 @@ import dk.timtwotoes.bowling.logic.Game;
 import dk.timtwotoes.bowling.network.GetPointsData;
 import dk.timtwotoes.bowling.network.PostPointsData;
 import dk.timtwotoes.bowling.network.RESTClient;
+import dk.timtwotoes.bowling.network.SuccessData;
+
 import java.net.URI;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
@@ -28,18 +30,23 @@ public class Application {
         if (response.statusCode() == 200) {
             GetPointsData pointsData = GetPointsData.fromJSON(response.body());
 
+            System.out.println("Received\n" + response.body());
+
             int[] computedPoints = computePoints(pointsData.getPoints());
 
             PostPointsData postData = new PostPointsData(pointsData.getToken(), computedPoints);
-            HttpResponse<String> postResponse = client.synchronousPostRequest(POINTS_URI, postData.toJSON());
+            String jsonString = postData.toJSON();
+            System.out.println("Sending:\n" + jsonString );
+            HttpResponse<String> postResponse = client.synchronousPostRequest(POINTS_URI, jsonString);
 
             if (postResponse.statusCode() == 200) {
-                System.out.println("Computation was correct.");
+                SuccessData successData = SuccessData.fromJSON(postResponse.body());
+                System.out.println("Success = " + successData.getSuccess().toString());
             } else {
-                System.out.println("Computation was incorrect.");
+                System.out.println("[" + postResponse.statusCode() +"] " + postResponse.body());
             }
         } else {
-            System.out.println("Received status code " + response.statusCode());
+            System.out.println("[" + response.statusCode() + "] " + response.body());
         }
     }
 
