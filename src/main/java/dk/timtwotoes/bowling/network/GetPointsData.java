@@ -1,19 +1,20 @@
 package dk.timtwotoes.bowling.network;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
-public class GetPointsAPI {
+public class GetPointsData {
     private Object points;
     private String token;
 
-    public static GetPointsAPI fromJSON(String jsonString) throws IOException, JsonParseException, JsonMappingException {
+    public static GetPointsData fromJSON(String jsonString) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.readValue(jsonString, GetPointsAPI.class);
+        return mapper.readValue(jsonString, GetPointsData.class);
     }
 
     public Object getPoints() {
