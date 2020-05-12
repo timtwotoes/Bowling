@@ -6,15 +6,20 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostPointsData {
     private String token;
     private List<Integer> points;
 
-    public PostPointsData(String token, List<Integer> points) {
+    public PostPointsData(String token, int[] points) {
         this.token = token;
-        this.points = points;
+
+        this.points = new ArrayList<>(points.length);
+        for (int value: points) {
+            this.points.add(value);
+        }
     }
 
     public String getToken() {
