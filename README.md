@@ -9,7 +9,3 @@ Clone project to a folder and in a terminal from the root of the project folder 
 # Running tests
 
 > ./gradlew clean test
-
-#### Note
-
-For some reason the application receives status code 400 along with the message "Invalid token". It requires a little digging to find the cause.
