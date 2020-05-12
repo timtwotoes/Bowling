@@ -12,7 +12,7 @@ public class RESTClient {
     public HttpResponse<String> synchronousGetRequest(URI uri) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
-                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
                 .build();
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
@@ -20,9 +20,10 @@ public class RESTClient {
     public HttpResponse<String> synchronousPostRequest(URI uri, String body) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(uri)
-                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(body))
                 .build();
+
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 }

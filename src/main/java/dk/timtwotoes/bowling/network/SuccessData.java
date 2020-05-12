@@ -7,9 +7,13 @@ import java.util.List;
 
 public class SuccessData {
     private Boolean success;
+    private Object input;
 
     public Boolean getSuccess() {
         return success;
+    }
+    public Object getInput() {
+        return input;
     }
 
     public static SuccessData fromJSON(String jsonString) throws JsonProcessingException {

@@ -33,6 +33,6 @@ public class PostPointsData {
     public String toJSON() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
 
-        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
+        return mapper.writer().writeValueAsString(this);
     }
 }
