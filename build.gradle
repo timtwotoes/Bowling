@@ -1,5 +1,10 @@
 plugins {
     id 'java'
+    id 'application'
+}
+
+application {
+    mainClass = 'dk.timtwotoes.bowling.Application'
 }
 
 group 'dk.timtwotoes'
