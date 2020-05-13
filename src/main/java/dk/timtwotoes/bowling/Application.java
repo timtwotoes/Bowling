@@ -10,9 +10,6 @@ import dk.timtwotoes.bowling.network.SuccessData;
 
 import java.net.URI;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Application {
     private static final URI POINTS_URI = URI.create("http://13.74.31.101/api/points");
@@ -25,23 +22,24 @@ public class Application {
     }
 
     public void run() throws Exception {
+        System.out.println("Requesting Token");
         HttpResponse<String> response = client.synchronousGetRequest(POINTS_URI);
 
         if (response.statusCode() == 200) {
             GetPointsData pointsData = GetPointsData.fromJSON(response.body());
 
-            System.out.println("Received\n" + response.body());
+            System.out.println("Received " + response.body());
 
             int[] computedPoints = computePoints(pointsData.getPoints());
 
             PostPointsData postData = new PostPointsData(pointsData.getToken(), computedPoints);
             String jsonString = postData.toJSON();
-            System.out.println("Sending:\n" + jsonString );
+            System.out.println("Sending: " + jsonString );
             HttpResponse<String> postResponse = client.synchronousPostRequest(POINTS_URI, jsonString);
 
             if (postResponse.statusCode() == 200) {
                 SuccessData successData = SuccessData.fromJSON(postResponse.body());
-                System.out.println("Success = " + successData.getSuccess().toString());
+                System.out.println("Received Success = " + successData.getSuccess().toString());
             } else {
                 System.out.println("[" + postResponse.statusCode() +"] " + postResponse.body());
             }
