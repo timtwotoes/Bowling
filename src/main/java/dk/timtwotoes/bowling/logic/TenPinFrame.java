@@ -24,7 +24,7 @@ public class TenPinFrame extends Frame {
         int firstRoll = points.length == 0 ? 0 : points[0];
         int secondRoll = points.length < 2 ? 0 : points[1];
 
-        if (firstRoll == 10 && secondRoll == 0) {
+        if (firstRoll == 10) {
             return PinCount.STRIKE;
         } else if (firstRoll + secondRoll == 10) {
             return PinCount.SPARE;
@@ -53,8 +53,9 @@ public class TenPinFrame extends Frame {
         while (rolls > 0 && currentFrame != null) {
             int pointIndex = 0;
             PinCount count = currentFrame.getPinCount();
+            boolean isSpecialFrame = currentFrame.isSpecialFrame();
 
-            if (count == PinCount.STRIKE && isSpecialFrame() == false) {
+            if (count == PinCount.STRIKE && isSpecialFrame == false) {
                 sumOfPoints += currentFrame.points[pointIndex];
                 rolls--;
             } else {

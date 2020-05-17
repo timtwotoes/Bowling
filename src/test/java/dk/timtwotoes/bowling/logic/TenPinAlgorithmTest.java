@@ -21,6 +21,16 @@ public class TenPinAlgorithmTest {
     }
 
     @Test
+    public void perfect_game_with_eleventh_frame() {
+        int[][] game = {{10, 0}, {10, 0}, {10, 0}, {10, 0}, {10, 0}, {10, 0}, {10, 0}, {10, 0}, {10, 0}, {10, 00}, {10, 10}};
+
+        int[] expected = {30, 60, 90, 120, 150, 180, 210, 240, 270, 300};
+        int[] actual = computeTenPinPoints(game);
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
     public void open_game() {
         int[][] game = {{2, 7}, {5, 1}, {4, 4}, {8, 1}, {6, 3}, {1, 2}, {1, 1}, {2, 7}, {5, 3}, {4, 2}};
 
