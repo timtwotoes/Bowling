@@ -52,8 +52,7 @@ public class Game {
         int sum = 0;
 
         for (int index = 0; index < amountOfFrames; index++) {
-            // An eleventh frame is allowed as a way of representing a perfect game.
-            sum += index >= 10 ? 0 : frames[index].computePoints();
+            sum += frames[index].computePoints();
             points[index] = sum;
         }
 
