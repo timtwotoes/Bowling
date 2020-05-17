@@ -3,8 +3,8 @@ package dk.timtwotoes.bowling.logic;
 public class TenPinFrame extends Frame {
     private static final int INITIAL_ROLLS = 2;
 
-    public TenPinFrame(int[] points, Frame nextFrame, boolean isLastFrame) {
-        super(points, nextFrame, isLastFrame);
+    public TenPinFrame(int[] points, Frame nextFrame) {
+        super(points, nextFrame);
     }
 
     public enum PinCount {

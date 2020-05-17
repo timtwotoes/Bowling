@@ -5,10 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TenPinAlgorithmTest {
-    private final FrameFactory factory = new FrameFactory();
-
     int[] computeTenPinPoints(int[][] frames) {
-        Game game = new Game(factory.generateFrames(FrameFactory.FrameKind.TEN_PIN, frames));
+        Game game = new Game.Builder(Game.Builder.Option.TEN_PIN, frames).build();
         return game.sumAllFramePoints();
     }
 

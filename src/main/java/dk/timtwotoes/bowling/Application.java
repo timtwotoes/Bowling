@@ -1,7 +1,5 @@
 package dk.timtwotoes.bowling;
 
-import dk.timtwotoes.bowling.logic.Frame;
-import dk.timtwotoes.bowling.logic.FrameFactory;
 import dk.timtwotoes.bowling.logic.Game;
 import dk.timtwotoes.bowling.network.GetPointsData;
 import dk.timtwotoes.bowling.network.PostPointsData;
@@ -14,10 +12,9 @@ import java.net.http.HttpResponse;
 public class Application {
     private static final URI POINTS_URI = URI.create("http://13.74.31.101/api/points");
     private RESTClient client = new RESTClient();
-    private FrameFactory factory = new FrameFactory();
 
     private int[] computePoints(int[][] frames) {
-        Game game = new Game(factory.generateFrames(FrameFactory.FrameKind.TEN_PIN, frames));
+        Game game = new Game.Builder(Game.Builder.Option.TEN_PIN, frames).build();
         return game.sumAllFramePoints();
     }
 
