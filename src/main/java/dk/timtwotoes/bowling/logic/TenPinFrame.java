@@ -1,6 +1,6 @@
 package dk.timtwotoes.bowling.logic;
 
-public class TenPinFrame extends Frame {
+class TenPinFrame extends Frame {
     private static final int INITIAL_ROLLS = 2;
 
     public TenPinFrame(int[] points, Frame nextFrame) {

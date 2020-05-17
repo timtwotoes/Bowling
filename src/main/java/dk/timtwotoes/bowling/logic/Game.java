@@ -1,12 +1,15 @@
 package dk.timtwotoes.bowling.logic;
 
-public class Game {
-    private Frame[] frames;
+public abstract class Game {
+    protected Frame[] frames;
 
-    private Game() {}
+    protected Game(Frame[] frames) {
+        this.frames = frames;
+    }
 
     public static class Builder {
         private Frame[] frames;
+        private Option option;
 
         public enum Option {
             TEN_PIN
@@ -27,7 +30,17 @@ public class Game {
             }
         }
 
+        private Game createGame(Option option, Frame[] frames) {
+            switch (option) {
+                case TEN_PIN: return new TenPinGame(frames);
+
+                default:
+                    throw new IllegalStateException("Unexpected option: " + option);
+            }
+        }
+
         public Builder(Option option, int[][] frames) {
+            this.option = option;
             this.frames = createFrames(option, frames.length);
             int lastFrame = frames.length - 1;
 
@@ -39,23 +52,9 @@ public class Game {
         }
 
         public Game build() {
-            Game game = new Game();
-            game.frames = this.frames;
-            return game;
+            return createGame(option, frames);
         }
     }
 
-    public int[] sumAllFramePoints() {
-        // An eleventh frame is allowed as a way of representing a perfect game.
-        int amountOfFrames = frames.length > 10 ? 10 : frames.length;
-        int[] points = new int[amountOfFrames];
-        int sum = 0;
-
-        for (int index = 0; index < amountOfFrames; index++) {
-            sum += frames[index].computePoints();
-            points[index] = sum;
-        }
-
-        return points;
-    }
+    public abstract int[] sumAllFramePoints();
 }
