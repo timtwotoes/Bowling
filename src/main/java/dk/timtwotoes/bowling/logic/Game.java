@@ -47,7 +47,7 @@ public class Game {
 
     public int[] sumAllFramePoints() {
         // An eleventh frame is allowed as a way of representing a perfect game.
-        int amountOfFrames = frames.length > 9 ? 10 : frames.length;
+        int amountOfFrames = frames.length > 10 ? 10 : frames.length;
         int[] points = new int[amountOfFrames];
         int sum = 0;
 
